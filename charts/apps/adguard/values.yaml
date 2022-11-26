@@ -87,7 +87,7 @@ service:
 # @default -- See values.yaml
 persistence:
   config:
-    enabled: true
+    enabled: false
     mountPath: /opt/adguardhome/conf
   data:
     enabled: false
