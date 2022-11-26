@@ -18,7 +18,7 @@ subPath: "AdGuardHome.yaml"
 type: "custom"
 volumeSpec:
   configMap:
-    name: {{ include "common.names.fullname" . }}-config
+    name: {{ include ".global.nameOverride" . }}-config
 {{- end -}}
 {{- $_ := set .Values.persistence "adguard-home-config" (include "adguard-home.configVolume" . | fromYaml) -}}
 
