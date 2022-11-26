@@ -1,0 +1,11 @@
+{{- include "bjw-s.common.loader.init" . }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "common.names.fullname" . }}-config
+  labels:
+    {{- include "common.labels" . | nindent 4 }}
+data:
+  AdGuardHome.yaml: |
+{{ .Values.config | indent 4 }}
