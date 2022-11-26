@@ -14,7 +14,7 @@ on:
 
   push:
     branches:
-      - main
+      - DocDev
     paths:
       - "charts/**"
 
@@ -41,6 +41,16 @@ jobs:
           repoConfigFile: ./.ci/repo-config.yaml
           overrideCharts: "[${{ inputs.charts }}]"
 
+  test-application-charts:
+    name: Test Application charts
+    uses: ./.github/workflows/charts-test.yaml
+    needs:
+      - prepare
+    with:
+      chartsToTest: "${{ needs.prepare.outputs.applicationChartsToRelease }}"
+      checkoutCommit: "${{ github.event.workflow_run.workflow_dispatch }}"
+    secrets: inherit
+
   release-library-charts:
     name: Release Library charts to GitHub pages
     uses: ./.github/workflows/charts-release-ghpages.yaml
@@ -55,6 +65,7 @@ jobs:
     uses: ./.github/workflows/charts-release-ghpages.yaml
     needs:
       - prepare
+      - test-application-charts
       - release-library-charts
     with:
       charts: "${{ needs.prepare.outputs.applicationChartsToRelease }}"
