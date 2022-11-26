@@ -5,7 +5,7 @@ kind: ConfigMap
 metadata:
   name: {{ template "bjw-s.common.lib.chart.names.name" . }}-config
   labels:
-    {{- include "common.labels" . | nindent 4 }}
+    {{- include "bjw-s.common.lib.metadata.allLabels" . | nindent 4 }}
 data:
   AdGuardHome.yaml: |
 {{ .Values.config | indent 4 }}
