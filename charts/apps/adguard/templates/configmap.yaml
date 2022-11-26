@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "common.global.nameOverride" . }}-config
+  name: {{ template "bjw-s.common.lib.chart.names.name" . }}-config
   labels:
     {{- include "common.labels" . | nindent 4 }}
 data:

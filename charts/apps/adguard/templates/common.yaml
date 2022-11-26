@@ -18,7 +18,7 @@ subPath: "AdGuardHome.yaml"
 type: "custom"
 volumeSpec:
   configMap:
-    name: {{ include ".global.nameOverride" . }}-config
+    name: {{ include "bjw-s.common.lib.chart.names.name" . }}-config
 {{- end -}}
 {{- $_ := set .Values.persistence "adguard-home-config" (include "adguard-home.configVolume" . | fromYaml) -}}
 
