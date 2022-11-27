@@ -1,0 +1,27 @@
+---
+{{- include "bjw-s.common.loader.init" . }}
+
+{{- define "app-template.hardcodedValues" -}}
+# Set the nameOverride based on the release name if no override has been set
+{{ if not .Values.global.nameOverride }}
+global:
+  nameOverride: "{{ .Release.Name }}"
+{{ end }}
+{{- end -}}
+{{- $_ := mergeOverwrite .Values (include "app-template.hardcodedValues" . | fromYaml) -}}
+
+{{/* Append the configMap volume to the volumes */}}
+{{- define "zigbee2mqtt.settingsVolume" -}}
+enabled: "true"
+mountPath: "/app/configuration.yaml"
+subPath: "configuration.yaml"
+type: "custom"
+volumeSpec:
+  configMap:
+    name: {{ include "bjw-s.common.lib.chart.names.name" . }}-settings
+{{- end -}}
+{{- $_ := set .Values.persistence "zigbee2mqtt-settings" (include "zigbee2mqtt.settingsVolume" . | fromYaml) -}}
+
+
+{{/* Render the templates */}}
+{{ include "bjw-s.common.loader.generate" . }}
