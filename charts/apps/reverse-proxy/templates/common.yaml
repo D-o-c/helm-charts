@@ -1,0 +1,30 @@
+---
+{{- include "bjw-s.common.loader.init" . }}
+
+{{- define "app-template.hardcodedValues" -}}
+# Set the nameOverride based on the release name if no override has been set
+{{ if not .Values.global.nameOverride }}
+global:
+  nameOverride: "{{ .Release.Name }}"
+{{ end }}
+{{- end -}}
+{{- $_ := mergeOverwrite .Values (include "app-template.hardcodedValues" . | fromYaml) -}}
+
+{{/* Append the hardcoded settings */}}
+{{- define "reverse-proxy.harcodedValues" -}}
+
+# Disable Deployment
+controller:
+  enabled: false
+
+# Disable Service
+service:
+  main:
+    enabled: false
+
+{{- end -}}
+{{- $_ := mergeOverwrite .Values (include "reverse-proxy.harcodedValues" . | fromYaml) -}}
+
+
+{{/* Render the templates */}}
+{{ include "bjw-s.common.loader.generate" . }}
