@@ -3,7 +3,7 @@ apiVersion: v2
 appVersion: v3.5.3
 description: Speedtest Exporter made in python using the official speedtest bin
 name: speedtest-exporter
-version: 1.1.3
+version: 1.0.0
 kubeVersion: ">=1.22.0-0"
 keywords:
   - speedtest-exporter
@@ -20,9 +20,5 @@ dependencies:
     version: 1.1.3
 annotations:
   artifacthub.io/changes: |-
-    - kind: changed
-      description: |
-        Updated library version to 1.1.3.
-      links:
-        - name: Common library chart definition
-          url: https://github.com/bjw-s/helm-charts/blob/main/charts/library/common/Chart.yaml
+    - kind: added
+      description: first release
