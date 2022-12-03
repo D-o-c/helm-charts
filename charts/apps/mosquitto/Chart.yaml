@@ -4,7 +4,7 @@ appVersion: 2.0.15
 description: Eclipse Mosquitto - An open source MQTT broker
 name: mosquitto
 version: 1.0.0
-kubeVersion: ">=1.22.0-0"
+kubeVersion: ">=1.20.0-0"
 keywords:
   - mosquitto
   - MQTT
