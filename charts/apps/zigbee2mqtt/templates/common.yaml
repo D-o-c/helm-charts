@@ -23,17 +23,18 @@ volumeSpec:
 {{- $_ := set .Values.persistence "zigbee2mqtt-settings" (include "zigbee2mqtt.settingsVolume" . | fromYaml) -}}
 
 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ template "bjw-s.common.lib.chart.names.fullname" . }}-settings
-  labels:
-    {{- include "bjw-s.common.lib.metadata.allLabels" . | nindent 4 }}
+{{/* Create the configMap elements */}}
+{{- define "zigbee2mqtt.configMap" -}}
+enabled: true
+labels:
+  {{- include "bjw-s.common.lib.metadata.allLabels" . | nindent 4 }}
 data:
   configuration.yaml: |
 {{- with .Values.config }}
     {{- toYaml . | nindent 4 }}
 {{- end }}
+{{- end -}}
+{{- $_ := set .Values.configMaps "settings" (include "zigbee2mqtt.configMap" . | fromYaml) -}}
 
 
 {{/* Render the templates */}}
