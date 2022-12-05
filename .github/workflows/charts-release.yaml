@@ -52,7 +52,7 @@ jobs:
     secrets: inherit
 
   lint-application-charts:
-    name: Test Application charts
+    name: Lint Application charts
     uses: ./.github/workflows/charts-lint.yaml
     needs:
       - prepare
