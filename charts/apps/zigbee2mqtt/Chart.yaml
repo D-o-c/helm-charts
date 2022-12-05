@@ -1,9 +1,9 @@
 ---
 apiVersion: v2
-appVersion: 1.28.2
+appVersion: 1.28.4
 description: Bridges events and allows you to control your Zigbee devices via MQTT
 name: zigbee2mqtt
-version: 1.0.1
+version: 1.0.2
 kubeVersion: ">=1.21.0-0"
 keywords:
   - zigbee
@@ -23,4 +23,4 @@ dependencies:
 annotations:
   artifacthub.io/changes: |-
     - kind: added
-      description: Fixed issue in template, when creating configMap
+      description: updated to 1.28.4
