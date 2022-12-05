@@ -18,9 +18,21 @@ subPath: "AdGuardHome.yaml"
 type: "custom"
 volumeSpec:
   configMap:
-    name: {{ include "bjw-s.common.lib.chart.names.name" . }}-config
+    name: {{ include "bjw-s.common.lib.chart.names.fullname" . }}-config
 {{- end -}}
 {{- $_ := set .Values.persistence "adguard-home-config" (include "adguard-home.configVolume" . | fromYaml) -}}
+
+{{/* Create the configMap elements */}}
+{{- define "adguard.configMap" -}}
+enabled: true
+labels:
+  {{- include "bjw-s.common.lib.metadata.allLabels" . | nindent 4 }}
+data:
+  AdGuardHome.yaml: |
+{{ .Values.config | indent 4 }}
+{{- end -}}
+{{- $_ := set .Values.configMaps "config" (include "adguard.configMap" . | fromYaml) -}}
+
 
 {{/* Render the templates */}}
 {{ include "bjw-s.common.loader.generate" . }}

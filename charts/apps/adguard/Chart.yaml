@@ -3,7 +3,7 @@ apiVersion: v2
 appVersion: v0.107.18
 description: DNS proxy as ad-blocker for local network
 name: adguard-home
-version: 1.0.0
+version: 1.0.1
 kubeVersion: ">=1.22.0-0"
 maintainers:
   - name: D-o-c
@@ -18,5 +18,5 @@ sources:
   - https://github.com/AdguardTeam/AdGuardHome
 annotations:
   artifacthub.io/changes: |-
-    - kind: added
-      description: first release
+    - kind: changed
+      description: configmap template fixed
