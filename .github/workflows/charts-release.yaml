@@ -59,6 +59,7 @@ jobs:
     with:
       chartsToLint: "${{ needs.prepare.outputs.applicationChartsToRelease }}"
       checkoutCommit: "${{ github.event.workflow_run.workflow_dispatch }}"
+      isRenovatePR: false
     secrets: inherit
 
   release-library-charts:
