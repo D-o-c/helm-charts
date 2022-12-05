@@ -51,18 +51,6 @@ jobs:
       checkoutCommit: "${{ github.event.workflow_run.workflow_dispatch }}"
     secrets: inherit
 
-  lint-application-charts:
-    name: Lint Application charts
-    uses: ./.github/workflows/charts-lint.yaml
-    if: github.event.workflow_run.push
-    needs:
-      - prepare
-    with:
-      chartsToLint: "${{ needs.prepare.outputs.applicationChartsToRelease }}"
-      checkoutCommit: "${{ github.event.workflow_run.workflow_dispatch }}"
-      isRenovatePR: false
-    secrets: inherit
-
   release-library-charts:
     name: Release Library charts to GitHub pages
     uses: ./.github/workflows/charts-release-ghpages.yaml
@@ -78,7 +66,6 @@ jobs:
     needs:
       - prepare
       - test-application-charts
-      - lint-application-charts
       - release-library-charts
     with:
       charts: "${{ needs.prepare.outputs.applicationChartsToRelease }}"
