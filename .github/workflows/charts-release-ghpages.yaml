@@ -1,6 +1,14 @@
 name: "Charts: Release to GitHub pages"
 
 on:
+  workflow_dispatch:
+    inputs:
+      charts:
+        description: >
+          Charts to release. Comma-separated string.
+          Defaults to releasing everything.
+        default: ""
+        required: false
   workflow_call:
     inputs:
       charts:
