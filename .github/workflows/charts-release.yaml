@@ -54,6 +54,7 @@ jobs:
   lint-application-charts:
     name: Lint Application charts
     uses: ./.github/workflows/charts-lint.yaml
+    if: github.event.workflow_run.push
     needs:
       - prepare
     with:
