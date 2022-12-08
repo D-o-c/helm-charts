@@ -22,7 +22,7 @@ subPath: "AdGuardHome.yaml"
 type: "configMap"
 name: {{ include "bjw-s.common.lib.chart.names.fullname" . }}-config
 {{- end -}}
-{{- $_ := set .Values.persistence "adguard-home-configMap" (include "adguard-home.configVolume" . | fromYaml) -}}
+{{- $_ := set .Values.persistence "adguard-home-configmap" (include "adguard-home.configVolume" . | fromYaml) -}}
 
 {{/* Create the configMap elements */}}
 {{- define "adguard.configMap" -}}
