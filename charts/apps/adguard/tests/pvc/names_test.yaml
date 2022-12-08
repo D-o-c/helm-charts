@@ -5,7 +5,7 @@ tests:
   - it: disabled should pass
     asserts:
       - hasDocuments:
-          count: 2
+          count: 5
       - documentIndex: 0
         not: true
         isKind:
@@ -14,13 +14,29 @@ tests:
         not: true
         isKind:
           of: PersistentVolumeClaim
+      - documentIndex: 2
+        not: true
+        isKind:
+          of: PersistentVolumeClaim
+      - documentIndex: 3
+        not: true
+        isKind:
+          of: PersistentVolumeClaim
+      - documentIndex: 4
+        not: true
+        isKind:
+          of: PersistentVolumeClaim
 
   - it: default should pass
     set:
-      persistence.config.enabled: true
+      persistence:
+        pvc-test:
+          enabled: true
+          accessMode: RWO
+          size: 1Gi
     asserts:
       - hasDocuments:
-          count: 3
+          count: 6
       - documentIndex: &PersistentVolumeClaimDocument 0
         isKind:
           of: PersistentVolumeClaim
@@ -35,13 +51,16 @@ tests:
       - documentIndex: *PersistentVolumeClaimDocument
         equal:
           path: metadata.name
-          value: RELEASE-NAME-config
+          value: RELEASE-NAME-pvc-test
 
   - it: without suffix should pass
     set:
-      persistence.config:
-        enabled: true
-        nameOverride: "-"
+      persistence:
+        pvc-test:
+          enabled: true
+          accessMode: RWO
+          size: 1Gi
+          nameOverride: "-"
     asserts:
       - documentIndex: &PersistentVolumeClaimDocument 0
         isKind:
@@ -53,9 +72,12 @@ tests:
 
   - it: with custom suffix should pass
     set:
-      persistence.config:
-        enabled: true
-        nameOverride: "custom"
+      persistence:
+        pvc-test:
+          enabled: true
+          accessMode: RWO
+          size: 1Gi
+          nameOverride: "custom"
     asserts:
       - documentIndex: &PersistentVolumeClaimDocument 0
         isKind:

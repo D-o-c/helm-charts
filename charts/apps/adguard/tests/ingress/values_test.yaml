@@ -6,7 +6,7 @@ tests:
     set:
       ingress.main.enabled: true
     asserts:
-      - documentIndex: &IngressDocument 2
+      - documentIndex: &IngressDocument 4
         isKind:
           of: Ingress
       - documentIndex: *IngressDocument
@@ -27,7 +27,7 @@ tests:
             paths:
               - path: /test
     asserts:
-      - documentIndex: &IngressDocument 2
+      - documentIndex: &IngressDocument 4
         isKind:
           of: Ingress
       - documentIndex: *IngressDocument
@@ -46,7 +46,7 @@ tests:
         hosts:
           - host: "{{ .Release.Name }}.hostname"
     asserts:
-      - documentIndex: &IngressDocument 2
+      - documentIndex: &IngressDocument 4
         isKind:
           of: Ingress
       - documentIndex: *IngressDocument
@@ -63,7 +63,7 @@ tests:
             paths:
               - path: "/{{ .Release.Name }}.path"
     asserts:
-      - documentIndex: &IngressDocument 2
+      - documentIndex: &IngressDocument 4
         isKind:
           of: Ingress
       - documentIndex: *IngressDocument

@@ -5,23 +5,37 @@ tests:
   - it: default should pass
     asserts:
       - hasDocuments:
-          count: 2
-      - documentIndex: &ServiceDocument 1
+          count: 5
+      - documentIndex: &ServiceDocument-main 3
         isKind:
           of: Service
-      - documentIndex: *ServiceDocument
+      - documentIndex: &ServiceDocument-udp 2
+        isKind:
+          of: Service
+      - documentIndex: &ServiceDocument-tcp 1
+        isKind:
+          of: Service
+      - documentIndex: *ServiceDocument-main
         equal:
           path: spec.ports[0].protocol
           value: TCP
+      - documentIndex: *ServiceDocument-tcp
+        equal:
+          path: spec.ports[0].protocol
+          value: TCP
+      - documentIndex: *ServiceDocument-udp
+        equal:
+          path: spec.ports[0].protocol
+          value: UDP
 
   - it: explicit TCP should pass
     set:
-      service.main.ports.http.protocol: TCP
+      service.dns-udp.ports.dns-udp.protocol: TCP
     asserts:
-      - documentIndex: &ServiceDocument 1
+      - documentIndex: &ServiceDocument-udp 2
         isKind:
           of: Service
-      - documentIndex: *ServiceDocument
+      - documentIndex: *ServiceDocument-udp
         equal:
           path: spec.ports[0].protocol
           value: TCP
@@ -30,41 +44,41 @@ tests:
     set:
       service.main.ports.http.protocol: UDP
     asserts:
-      - documentIndex: &ServiceDocument 1
+      - documentIndex: &ServiceDocument-main 3
         isKind:
           of: Service
-      - documentIndex: *ServiceDocument
+      - documentIndex: *ServiceDocument-main
         equal:
           path: spec.ports[0].protocol
           value: UDP
 
   - it: explicit HTTP should pass
     set:
-      service.main.ports.http.protocol: HTTP
+      service.dns-udp.ports.dns-udp.protocol: HTTP
     asserts:
-      - documentIndex: &ServiceDocument 1
+      - documentIndex: &ServiceDocument-udp 2
         isKind:
           of: Service
-      - documentIndex: *ServiceDocument
+      - documentIndex: *ServiceDocument-udp
         equal:
           path: spec.ports[0].protocol
           value: TCP
-      - documentIndex: *ServiceDocument
+      - documentIndex: *ServiceDocument-udp
         isNull:
           path: metadata.annotations
 
   - it: explicit HTTPS should pass
     set:
-      service.main.ports.http.protocol: HTTPS
+      service.dns-udp.ports.dns-udp.protocol: HTTPS
     asserts:
-      - documentIndex: &ServiceDocument 1
+      - documentIndex: &ServiceDocument 2
         isKind:
           of: Service
-      - documentIndex: *ServiceDocument
+      - documentIndex: *ServiceDocument-udp
         equal:
           path: spec.ports[0].protocol
           value: TCP
-      - documentIndex: *ServiceDocument
+      - documentIndex: *ServiceDocument-udp
         equal:
           path: metadata.annotations
           value:

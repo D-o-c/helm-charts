@@ -3,29 +3,40 @@ templates:
   - common.yaml
 tests:
   - it: no persistence should pass
-    asserts:
-      - documentIndex: &DeploymentDoc 0
-        isKind:
-          of: Deployment
-      - documentIndex: *DeploymentDoc
-        isNull:
-          path: spec.template.spec.containers[0].volumeMounts
-
-  - it: default should pass
     set:
       persistence:
         config:
-          enabled: true
+          enabled: false
     asserts:
-      - documentIndex: &DeploymentDoc 1
+      - documentIndex: &DeploymentDoc 0
         isKind:
           of: Deployment
       - documentIndex: *DeploymentDoc
         equal:
           path: spec.template.spec.containers[0].volumeMounts[0]
           value:
+            mountPath: /tmp/AdGuardHome.yaml
+            name: adguard-home-configMap
+            subPath: AdGuardHome.yaml
+
+  - it: default should pass
+    asserts:
+      - documentIndex: &DeploymentDoc 0
+        isKind:
+          of: Deployment
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.containers[0].volumeMounts[0]
+          value:
+            mountPath: /tmp/AdGuardHome.yaml
+            name: adguard-home-configMap
+            subPath: AdGuardHome.yaml
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.containers[0].volumeMounts[1]
+          value:
             name: config
-            mountPath: /config
+            mountPath: /opt/adguardhome/conf
 
   - it: emptyDir should pass
     set:
@@ -39,7 +50,7 @@ tests:
           of: Deployment
       - documentIndex: *DeploymentDoc
         equal:
-          path: spec.template.spec.containers[0].volumeMounts[0]
+          path: spec.template.spec.containers[0].volumeMounts[1]
           value:
             name: cache
             mountPath: /cache
@@ -53,12 +64,12 @@ tests:
           accessMode: ReadWriteMany
           size: 1G
     asserts:
-      - documentIndex: &DeploymentDoc 1
+      - documentIndex: &DeploymentDoc 0
         isKind:
           of: Deployment
       - documentIndex: *DeploymentDoc
         equal:
-          path: spec.template.spec.containers[0].volumeMounts[0]
+          path: spec.template.spec.containers[0].volumeMounts[1]
           value:
             name: config
             mountPath: /custom
@@ -76,10 +87,10 @@ tests:
           of: Deployment
       - documentIndex: *DeploymentDoc
         equal:
-          path: spec.template.spec.containers[0].volumeMounts[0]
+          path: spec.template.spec.containers[0].volumeMounts[1]
           value:
             name: config
-            mountPath: /config
+            mountPath: /opt/adguardhome/conf
             subPath: mySubPath
 
   - it: hostPath with custom mountPath should pass
@@ -96,7 +107,7 @@ tests:
           of: Deployment
       - documentIndex: *DeploymentDoc
         equal:
-          path: spec.template.spec.containers[0].volumeMounts[0]
+          path: spec.template.spec.containers[0].volumeMounts[1]
           value:
             name: config
             mountPath: /data
@@ -115,8 +126,8 @@ tests:
           of: Deployment
       - documentIndex: *DeploymentDoc
         equal:
-          path: spec.template.spec.containers[0].volumeMounts[0]
+          path: spec.template.spec.containers[0].volumeMounts[1]
           value:
             name: config
-            mountPath: /dev
+            mountPath: /opt/adguardhome/conf
             subPath: mySubPath

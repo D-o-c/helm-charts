@@ -6,7 +6,7 @@ tests:
     set:
       ingress.main.enabled: true
     asserts:
-      - documentIndex: &IngressDocument 2
+      - documentIndex: &IngressDocument 4
         isKind:
           of: Ingress
       - documentIndex: *IngressDocument
@@ -22,7 +22,7 @@ tests:
             hosts:
               - hostname
     asserts:
-      - documentIndex: &IngressDocument 2
+      - documentIndex: &IngressDocument 4
         isKind:
           of: Ingress
       - documentIndex: *IngressDocument
@@ -41,7 +41,7 @@ tests:
           - hosts:
               - hostname
     asserts:
-      - documentIndex: &IngressDocument 2
+      - documentIndex: &IngressDocument 4
         isKind:
           of: Ingress
       - documentIndex: *IngressDocument
@@ -60,7 +60,7 @@ tests:
             hosts:
               - hostname
     asserts:
-      - documentIndex: &IngressDocument 2
+      - documentIndex: &IngressDocument 4
         isKind:
           of: Ingress
       - documentIndex: *IngressDocument

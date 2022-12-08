@@ -61,7 +61,7 @@ tests:
           of: Deployment
       - documentIndex: *DeploymentDocument
         equal:
-          path: spec.template.spec.containers[0].env[0]
+          path: spec.template.spec.containers[0].env[1]
           value:
             name: main_env
             value: "value"

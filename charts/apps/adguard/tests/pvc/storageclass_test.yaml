@@ -4,7 +4,11 @@ templates:
 tests:
   - it: default should pass
     set:
-      persistence.config.enabled: true
+      persistence:
+        pvc-test:
+          enabled: true
+          accessMode: RWO
+          size: 1Gi
     asserts:
       - documentIndex: &PersistentVolumeClaimDocument 0
         isKind:
@@ -15,9 +19,12 @@ tests:
 
   - it: custom should pass
     set:
-      persistence.config:
-        enabled: true
-        storageClass: custom
+      persistence:
+        pvc-test:
+          enabled: true
+          accessMode: RWO
+          size: 1Gi
+          storageClass: custom
     asserts:
       - documentIndex: &PersistentVolumeClaimDocument 0
         isKind:
@@ -29,9 +36,12 @@ tests:
 
   - it: empty should pass
     set:
-      persistence.config:
-        enabled: true
-        storageClass: "-"
+      persistence:
+        pvc-test:
+          enabled: true
+          accessMode: RWO
+          size: 1Gi
+          storageClass: "-"
     asserts:
       - documentIndex: &PersistentVolumeClaimDocument 0
         isKind:

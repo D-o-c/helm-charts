@@ -5,25 +5,53 @@ tests:
   - it: default should pass
     asserts:
       - hasDocuments:
-          count: 2
-      - documentIndex: &ServiceDocument 1
+          count: 5
+      - documentIndex: &ServiceDocument-main 3
         isKind:
           of: Service
-      - documentIndex: *ServiceDocument
+      - documentIndex: &ServiceDocument-udp 2
+        isKind:
+          of: Service
+      - documentIndex: &ServiceDocument-tcp 1
+        isKind:
+          of: Service
+      - documentIndex: *ServiceDocument-main
         equal:
           path: metadata.name
           value: RELEASE-NAME
+      - documentIndex: *ServiceDocument-tcp
+        equal:
+          path: metadata.name
+          value: RELEASE-NAME-dns-tcp
+      - documentIndex: *ServiceDocument-udp
+        equal:
+          path: metadata.name
+          value: RELEASE-NAME-dns-udp
 
   - it: custom name suffix should pass
     set:
       service:
-        main:
+        dns-tcp:
           nameOverride: http
     asserts:
-      - documentIndex: &ServiceDocument 1
+      - documentIndex: &ServiceDocument-main 3
         isKind:
           of: Service
-      - documentIndex: *ServiceDocument
+      - documentIndex: &ServiceDocument-udp 2
+        isKind:
+          of: Service
+      - documentIndex: &ServiceDocument-tcp 1
+        isKind:
+          of: Service
+      - documentIndex: *ServiceDocument-main
+        equal:
+          path: metadata.name
+          value: RELEASE-NAME
+      - documentIndex: *ServiceDocument-tcp
         equal:
           path: metadata.name
           value: RELEASE-NAME-http
+      - documentIndex: *ServiceDocument-udp
+        equal:
+          path: metadata.name
+          value: RELEASE-NAME-dns-udp

@@ -15,12 +15,26 @@ tests:
                   fieldRef:
                     fieldPath: metadata.labels
     asserts:
-      - documentIndex: 0
+      - documentIndex: &DeploymentDoc 0
         isKind:
           of: Deployment
-      - documentIndex: 0
+      - documentIndex: *DeploymentDoc
         equal:
           path: spec.template.spec.volumes[0]
+          value:
+            name: adguard-home-configMap
+            configMap:
+              name: RELEASE-NAME-config
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.volumes[1]
+          value:
+            name: config
+            emptyDir:
+              {}
+      - documentIndex: 0
+        equal:
+          path: spec.template.spec.volumes[2]
           value:
             name: custom-mount
             downwardAPI:
@@ -37,12 +51,26 @@ tests:
           type: configMap
           name: mySettings
     asserts:
-      - documentIndex: 0
+      - documentIndex: &DeploymentDoc 0
         isKind:
           of: Deployment
-      - documentIndex: 0
+      - documentIndex: *DeploymentDoc
         equal:
           path: spec.template.spec.volumes[0]
+          value:
+            name: adguard-home-configMap
+            configMap:
+              name: RELEASE-NAME-config
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.volumes[1]
+          value:
+            name: config
+            emptyDir:
+              {}
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.volumes[2]
           value:
             name: configmap
             configMap:
@@ -56,12 +84,26 @@ tests:
           type: configMap
           name: "{{ include \"bjw-s.common.lib.chart.names.fullname\" $ }}-config"
     asserts:
-      - documentIndex: 0
+      - documentIndex: &DeploymentDoc 0
         isKind:
           of: Deployment
-      - documentIndex: 0
+      - documentIndex: *DeploymentDoc
         equal:
           path: spec.template.spec.volumes[0]
+          value:
+            name: adguard-home-configMap
+            configMap:
+              name: RELEASE-NAME-config
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.volumes[1]
+          value:
+            name: config
+            emptyDir:
+              {}
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.volumes[2]
           value:
             name: configmap
             configMap:
@@ -75,12 +117,26 @@ tests:
           type: secret
           name: mySettings
     asserts:
-      - documentIndex: 0
+      - documentIndex: &DeploymentDoc 0
         isKind:
           of: Deployment
-      - documentIndex: 0
+      - documentIndex: *DeploymentDoc
         equal:
           path: spec.template.spec.volumes[0]
+          value:
+            name: adguard-home-configMap
+            configMap:
+              name: RELEASE-NAME-config
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.volumes[1]
+          value:
+            name: config
+            emptyDir:
+              {}
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.volumes[2]
           value:
             name: secret
             secret:
@@ -94,12 +150,26 @@ tests:
           type: secret
           name: "{{ .Release.Name }}-config"
     asserts:
-      - documentIndex: 0
+      - documentIndex: &DeploymentDoc 0
         isKind:
           of: Deployment
-      - documentIndex: 0
+      - documentIndex: *DeploymentDoc
         equal:
           path: spec.template.spec.volumes[0]
+          value:
+            name: adguard-home-configMap
+            configMap:
+              name: RELEASE-NAME-config
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.volumes[1]
+          value:
+            name: config
+            emptyDir:
+              {}
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.volumes[2]
           value:
             name: secret
             secret:
@@ -114,12 +184,26 @@ tests:
           server: 10.10.0.8
           path: /tank/nas/library
     asserts:
-      - documentIndex: 0
+      - documentIndex: &DeploymentDoc 0
         isKind:
           of: Deployment
-      - documentIndex: 0
+      - documentIndex: *DeploymentDoc
         equal:
           path: spec.template.spec.volumes[0]
+          value:
+            name: adguard-home-configMap
+            configMap:
+              name: RELEASE-NAME-config
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.volumes[1]
+          value:
+            name: config
+            emptyDir:
+              {}
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.volumes[2]
           value:
             name: nfs
             nfs:

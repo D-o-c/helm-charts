@@ -11,12 +11,26 @@ tests:
           hostPath: "/tmp1"
           mountPath: "/data"
     asserts:
-      - documentIndex: 0
+      - documentIndex: &DeploymentDoc 0
         isKind:
           of: Deployment
-      - documentIndex: 0
+      - documentIndex: *DeploymentDoc
         equal:
           path: spec.template.spec.volumes[0]
+          value:
+            name: adguard-home-configMap
+            configMap:
+              name: RELEASE-NAME-config
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.volumes[1]
+          value:
+            name: config
+            emptyDir:
+              {}
+      - documentIndex: 0
+        equal:
+          path: spec.template.spec.volumes[2]
           value:
             name: hostpathmounts-data
             hostPath:
@@ -32,12 +46,12 @@ tests:
           hostPathType: "Directory"
           mountPath: "/data2"
     asserts:
-      - documentIndex: 0
+      - documentIndex: &DeploymentDoc 0
         isKind:
           of: Deployment
-      - documentIndex: 0
+      - documentIndex: *DeploymentDoc
         equal:
-          path: spec.template.spec.volumes[0]
+          path: spec.template.spec.volumes[2]
           value:
             name: hostpathmounts-with-type
             hostPath:

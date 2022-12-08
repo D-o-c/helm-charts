@@ -5,13 +5,22 @@ tests:
   - it: default should pass
     asserts:
       - hasDocuments:
-          count: 2
+          count: 5
       - documentIndex: &DeploymentDocument 0
         isKind:
           of: Deployment
       - documentIndex: 1
         isKind:
           of: Service
+      - documentIndex: 2
+        isKind:
+          of: Service
+      - documentIndex: 3
+        isKind:
+          of: Service
+      - documentIndex: 4
+        isKind:
+          of: ConfigMap
       - documentIndex: *DeploymentDocument
         not: true
         equal:
@@ -28,16 +37,25 @@ tests:
               mountPath: "/data/config"
     asserts:
       - hasDocuments:
-          count: 3
-      - documentIndex: &DeploymentDocument 1
-        isKind:
-          of: Deployment
+          count: 6
       - documentIndex: &AddonServiceDocument 0
         isKind:
           of: Service
-      - documentIndex: &ApplicationServiceDocument 2
+      - documentIndex: &DeploymentDocument 1
+        isKind:
+          of: Deployment
+      - documentIndex: 2
         isKind:
           of: Service
+      - documentIndex: 3
+        isKind:
+          of: Service
+      - documentIndex: 4
+        isKind:
+          of: Service
+      - documentIndex: 5
+        isKind:
+          of: ConfigMap
       - documentIndex: *DeploymentDocument
         equal:
           path: spec.template.spec.containers[1].name
@@ -59,13 +77,28 @@ tests:
               mountPath: "/data/config"
     asserts:
       - hasDocuments:
-          count: 4
-      - documentIndex: &AddonDeployKeySecretDocument 3
+          count: 7
+      - documentIndex: 0
         isKind:
-          of: Secret
+          of: Service
       - documentIndex: &DeploymentDocument 1
         isKind:
           of: Deployment
+      - documentIndex: 2
+        isKind:
+          of: Service
+      - documentIndex: 3
+        isKind:
+          of: Service
+      - documentIndex: 4
+        isKind:
+          of: Service
+      - documentIndex: 5
+        isKind:
+          of: ConfigMap
+      - documentIndex: &AddonDeployKeySecretDocument 6
+        isKind:
+          of: Secret
       - documentIndex: *DeploymentDocument
         contains:
           path: spec.template.spec.containers[1].volumeMounts
@@ -101,13 +134,28 @@ tests:
               mountPath: "/data/config"
     asserts:
       - hasDocuments:
-          count: 4
-      - documentIndex: &AddonDeployKeySecretDocument 3
+          count: 7
+      - documentIndex: 0
         isKind:
-          of: Secret
+          of: Service
       - documentIndex: &DeploymentDocument 1
         isKind:
           of: Deployment
+      - documentIndex: 2
+        isKind:
+          of: Service
+      - documentIndex: 3
+        isKind:
+          of: Service
+      - documentIndex: 4
+        isKind:
+          of: Service
+      - documentIndex: 5
+        isKind:
+          of: ConfigMap
+      - documentIndex: &AddonDeployKeySecretDocument 6
+        isKind:
+          of: Secret
       - documentIndex: *DeploymentDocument
         contains:
           path: spec.template.spec.containers[1].volumeMounts
@@ -143,10 +191,25 @@ tests:
               mountPath: "/data/config"
     asserts:
       - hasDocuments:
-          count: 3
+          count: 6
+      - documentIndex: 0
+        isKind:
+          of: Service
       - documentIndex: &DeploymentDocument 1
         isKind:
           of: Deployment
+      - documentIndex: 2
+        isKind:
+          of: Service
+      - documentIndex: 3
+        isKind:
+          of: Service
+      - documentIndex: 4
+        isKind:
+          of: Service
+      - documentIndex: 5
+        isKind:
+          of: ConfigMap
       - documentIndex: *DeploymentDocument
         contains:
           path: spec.template.spec.containers[1].volumeMounts

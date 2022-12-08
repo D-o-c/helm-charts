@@ -6,7 +6,7 @@ tests:
     set:
       ingress.main.enabled: true
     asserts:
-      - documentIndex: &IngressDocument 2
+      - documentIndex: &IngressDocument 4
         isKind:
           of: Ingress
       - documentIndex: *IngressDocument
@@ -16,7 +16,7 @@ tests:
             service:
               name: RELEASE-NAME
               port:
-                number: null
+                number: 3000
 
   - it: custom service reference should pass
     set:
@@ -28,9 +28,9 @@ tests:
               - path: /
                 service:
                   name: pathService
-                  port: 1234
+                  port: 3000
     asserts:
-      - documentIndex: &IngressDocument 2
+      - documentIndex: &IngressDocument 4
         isKind:
           of: Ingress
       - documentIndex: *IngressDocument
@@ -40,4 +40,4 @@ tests:
             service:
               name: pathService
               port:
-                number: 1234
+                number: 3000

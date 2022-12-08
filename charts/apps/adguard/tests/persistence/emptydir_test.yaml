@@ -3,36 +3,44 @@ templates:
   - common.yaml
 tests:
   - it: default emptyDir should pass
-    set:
-      persistence:
-        config:
-          enabled: true
-          type: emptyDir
     asserts:
-      - documentIndex: 0
+      - documentIndex: &DeploymentDoc 0
         isKind:
           of: Deployment
-      - documentIndex: 0
+      - documentIndex: *DeploymentDoc
         equal:
           path: spec.template.spec.volumes[0]
           value:
+            name: adguard-home-configMap
+            configMap:
+              name: RELEASE-NAME-config
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.volumes[1]
+          value:
             name: config
-            emptyDir: {}
+            emptyDir:
+              {}
 
   - it: emptyDir with medium should pass
     set:
       persistence:
         config:
-          enabled: true
-          type: emptyDir
           medium: memory
     asserts:
       - documentIndex: 0
         isKind:
           of: Deployment
-      - documentIndex: 0
+      - documentIndex: *DeploymentDoc
         equal:
           path: spec.template.spec.volumes[0]
+          value:
+            name: adguard-home-configMap
+            configMap:
+              name: RELEASE-NAME-config
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.volumes[1]
           value:
             name: config
             emptyDir:
@@ -50,9 +58,16 @@ tests:
       - documentIndex: 0
         isKind:
           of: Deployment
-      - documentIndex: 0
+      - documentIndex: *DeploymentDoc
         equal:
           path: spec.template.spec.volumes[0]
+          value:
+            name: adguard-home-configMap
+            configMap:
+              name: RELEASE-NAME-config
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.volumes[1]
           value:
             name: config
             emptyDir:

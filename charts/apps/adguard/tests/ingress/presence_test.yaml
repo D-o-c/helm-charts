@@ -5,12 +5,24 @@ tests:
   - it: default should pass
     asserts:
       - hasDocuments:
-          count: 2
+          count: 5
       - documentIndex: 0
         not: true
         isKind:
           of: Ingress
       - documentIndex: 1
+        not: true
+        isKind:
+          of: Ingress
+      - documentIndex: 2
+        not: true
+        isKind:
+          of: Ingress
+      - documentIndex: 3
+        not: true
+        isKind:
+          of: Ingress
+      - documentIndex: 4
         not: true
         isKind:
           of: Ingress
@@ -20,12 +32,24 @@ tests:
       ingress.main.enabled: false
     asserts:
       - hasDocuments:
-          count: 2
+          count: 5
       - documentIndex: 0
         not: true
         isKind:
           of: Ingress
       - documentIndex: 1
+        not: true
+        isKind:
+          of: Ingress
+      - documentIndex: 2
+        not: true
+        isKind:
+          of: Ingress
+      - documentIndex: 3
+        not: true
+        isKind:
+          of: Ingress
+      - documentIndex: 4
         not: true
         isKind:
           of: Ingress
@@ -35,7 +59,7 @@ tests:
       ingress.main.enabled: true
     asserts:
       - hasDocuments:
-          count: 3
+          count: 6
       - documentIndex: 0
         not: true
         isKind:
@@ -45,6 +69,18 @@ tests:
         isKind:
           of: Ingress
       - documentIndex: 2
+        not: true
+        isKind:
+          of: Ingress
+      - documentIndex: 3
+        not: true
+        isKind:
+          of: Ingress
+      - documentIndex: 4
+        isKind:
+          of: Ingress
+      - documentIndex: 5
+        not: true
         isKind:
           of: Ingress
 
@@ -54,7 +90,7 @@ tests:
       ingress.test.enabled: true
     asserts:
       - hasDocuments:
-          count: 4
+          count: 7
       - documentIndex: 0
         not: true
         isKind:
@@ -64,8 +100,20 @@ tests:
         isKind:
           of: Ingress
       - documentIndex: 2
+        not: true
         isKind:
           of: Ingress
       - documentIndex: 3
+        not: true
+        isKind:
+          of: Ingress
+      - documentIndex: 4
+        isKind:
+          of: Ingress
+      - documentIndex: 5
+        isKind:
+          of: Ingress
+      - documentIndex: 6
+        not: true
         isKind:
           of: Ingress

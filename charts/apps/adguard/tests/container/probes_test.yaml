@@ -3,13 +3,6 @@ templates:
   - common.yaml
 tests:
   - it: default should pass
-    set:
-      service:
-        main:
-          ports:
-            http:
-              enabled: true
-              port: &port 80
     asserts:
       - documentIndex: 0
         isKind:
@@ -22,7 +15,7 @@ tests:
             initialDelaySeconds: 0
             periodSeconds: 10
             tcpSocket:
-              port: *port
+              port: &port 3000
             timeoutSeconds: 1
       - documentIndex: 0
         equal:
@@ -49,14 +42,17 @@ tests:
     set:
       service:
         main:
+              primary: false
+        dns-tcp:
+              primary: false
+        dns-udp:
+              primary: false
+        test:
           ports:
-            http:
-              enabled: true
-              port: 80
             test:
               enabled: true
-              primary: true
               port: &port 8080
+          primary: true
     asserts:
       - documentIndex: 0
         isKind:
@@ -97,6 +93,11 @@ tests:
       service:
         main:
           enabled: false
+        dns-udp:
+          enabled: false
+        dns-tcp:
+          enabled: false
+        
     asserts:
       - documentIndex: 0
         isKind:
@@ -113,12 +114,6 @@ tests:
 
   - it: AUTO type probe should pass
     set:
-      service:
-        main:
-          ports:
-            http:
-              port: &port 80
-
       probes:
         liveness:
           enabled: true
@@ -135,7 +130,7 @@ tests:
           value:
             httpGet:
               path: /api/version
-              port: *port
+              port: 3000
               scheme: HTTP
             initialDelaySeconds: 0
             periodSeconds: 10
@@ -144,12 +139,6 @@ tests:
 
   - it: HTTP type probe should pass
     set:
-      service:
-        main:
-          ports:
-            http:
-              port: &port 80
-
       probes:
         liveness:
           enabled: true
@@ -166,7 +155,7 @@ tests:
           value:
             httpGet:
               path: /api/version
-              port: *port
+              port: 3000
               scheme: HTTP
             initialDelaySeconds: 0
             periodSeconds: 10
@@ -175,12 +164,6 @@ tests:
 
   - it: HTTPS type probe should pass
     set:
-      service:
-        main:
-          ports:
-            http:
-              port: &port 80
-
       probes:
         liveness:
           enabled: true
@@ -197,7 +180,7 @@ tests:
           value:
             httpGet:
               path: /api/version
-              port: *port
+              port: 3000
               scheme: HTTPS
             initialDelaySeconds: 0
             periodSeconds: 10
@@ -207,7 +190,7 @@ tests:
   - it: custom liveness probe should pass
     set:
       service:
-        main:
+        test:
           ports:
             http:
               port: &port 80
@@ -243,7 +226,7 @@ tests:
   - it: custom readiness probe should pass
     set:
       service:
-        main:
+        test:
           ports:
             http:
               port: &port 80
@@ -279,7 +262,7 @@ tests:
   - it: custom startup probe should pass
     set:
       service:
-        main:
+        test:
           ports:
             http:
               port: &port 80

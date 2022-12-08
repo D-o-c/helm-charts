@@ -10,7 +10,7 @@ tests:
           - name: parentName
             namespace: parentNamespace
     asserts:
-      - documentIndex: &HTTPRouteDocument 2
+      - documentIndex: &HTTPRouteDocument 4
         isKind:
           of: HTTPRoute
       - documentIndex: *HTTPRouteDocument
@@ -32,7 +32,7 @@ tests:
         hostnames:
           - chart-test.local
     asserts:
-      - documentIndex: &HTTPRouteDocument 2
+      - documentIndex: &HTTPRouteDocument 4
         isKind:
           of: HTTPRoute
       - documentIndex: *HTTPRouteDocument
@@ -114,38 +114,38 @@ tests:
                     type: PathPrefix
                     value: /test
     asserts:
-      - documentIndex: &HTTPRouteDocument 2
+      - documentIndex: &GRPCRouteDocument 4
         isKind:
           of: GRPCRoute
-      - documentIndex: &HTTPRouteDocument 2
+      - documentIndex: *GRPCRouteDocument
         isNull:
           path: spec.rules[0].matches
-      - documentIndex: &HTTPRouteDocument 3
+      - documentIndex: &HTTPRouteDocument 5
         isKind:
           of: HTTPRoute
-      - documentIndex: &HTTPRouteDocument 3
+      - documentIndex: *HTTPRouteDocument
         equal:
           path: spec.rules[0].matches
           value:
             - path:
                 type: PathPrefix
                 value: /test
-      - documentIndex: &HTTPRouteDocument 4
+      - documentIndex: &TCPRouteDocument 6
         isKind:
           of: TCPRoute
-      - documentIndex: &HTTPRouteDocument 4
+      - documentIndex: *TCPRouteDocument
         isNull:
           path: spec.rules[0].matches
-      - documentIndex: &HTTPRouteDocument 5
+      - documentIndex: &TLSRouteDocument 7
         isKind:
           of: TLSRoute
-      - documentIndex: &HTTPRouteDocument 5
+      - documentIndex: *TLSRouteDocument
         isNull:
           path: spec.rules[0].matches
-      - documentIndex: &HTTPRouteDocument 6
+      - documentIndex: &UDPRouteDocument 8
         isKind:
           of: UDPRoute
-      - documentIndex: &HTTPRouteDocument 6
+      - documentIndex: *UDPRouteDocument
         isNull:
           path: spec.rules[0].matches
 
@@ -169,16 +169,16 @@ tests:
             - name: parentName
               namespace: parentNamespace
     asserts:
-      - documentIndex: &HTTPRouteDocument 2
+      - documentIndex: &TCPRouteDocument 4
         isKind:
           of: TCPRoute
-      - documentIndex: &HTTPRouteDocument 2
+      - documentIndex: *TCPRouteDocument
         isNull:
           path: spec.hostnames
-      - documentIndex: &HTTPRouteDocument 3
+      - documentIndex: &UDPRouteDocument 5
         isKind:
           of: UDPRoute
-      - documentIndex: &HTTPRouteDocument 3
+      - documentIndex: *UDPRouteDocument
         isNull:
           path: spec.hostnames
 
@@ -197,16 +197,16 @@ tests:
               namespace: parentNamespace
               sectionName: parentSection
     asserts:
-      - documentIndex: &HTTPRouteDocument 2
+      - documentIndex: &mainRouteDocument 4
         isKind:
           of: HTTPRoute
-      - documentIndex: &HTTPRouteDocument 2
+      - documentIndex: *mainRouteDocument
         isNull:
           path: spec.parentRefs[0].sectionName
-      - documentIndex: &HTTPRouteDocument 3
+      - documentIndex: &secondRouteDocument 5
         isKind:
           of: HTTPRoute
-      - documentIndex: &HTTPRouteDocument 3
+      - documentIndex: *secondRouteDocument
         equal:
           path: spec.parentRefs[0].sectionName
           value: parentSection

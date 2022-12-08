@@ -5,13 +5,27 @@ tests:
   - it: a serviceMonitor is not created by default
     asserts:
       - hasDocuments:
-          count: 2
-      - documentIndex: &ServiceDocument 0
+          count: 5
+      - documentIndex: 0
+        not: true
         isKind:
-          of: Deployment
-      - documentIndex: &ServiceDocument 1
+          of: ServiceMonitor
+      - documentIndex: 1
+        not: true
         isKind:
-          of: Service
+          of: ServiceMonitor
+      - documentIndex: 2
+        not: true
+        isKind:
+          of: ServiceMonitor
+      - documentIndex: 3
+        not: true
+        isKind:
+          of: ServiceMonitor
+      - documentIndex: 4
+        not: true
+        isKind:
+          of: ServiceMonitor
 
   - it: a serviceMonitor is not created when disabled
     set:
@@ -20,13 +34,27 @@ tests:
           enabled: false
     asserts:
       - hasDocuments:
-          count: 2
-      - documentIndex: &ServiceDocument 0
+          count: 5
+      - documentIndex: 0
+        not: true
         isKind:
-          of: Deployment
-      - documentIndex: &ServiceDocument 1
+          of: ServiceMonitor
+      - documentIndex: 1
+        not: true
         isKind:
-          of: Service
+          of: ServiceMonitor
+      - documentIndex: 2
+        not: true
+        isKind:
+          of: ServiceMonitor
+      - documentIndex: 3
+        not: true
+        isKind:
+          of: ServiceMonitor
+      - documentIndex: 4
+        not: true
+        isKind:
+          of: ServiceMonitor
 
   - it: a serviceMonitor is created
     set:
@@ -41,10 +69,26 @@ tests:
               scrapeTimeout: 10s
     asserts:
       - hasDocuments:
-          count: 3
-      - documentIndex: &ServiceMonitorDocument 2
+          count: 6
+      - documentIndex: &DeploymentDocument 0
+        isKind:
+          of: Deployment
+      - documentIndex: &ServiceTCPDocument 1
+        isKind:
+          of: Service
+      - documentIndex: &ServiceUDPDocument 2
+        isKind:
+          of: Service
+      - documentIndex: &ServiceMainDocument 3
+        isKind:
+          of: Service
+      - documentIndex: &ServiceMonitorDocument 4
         isKind:
           of: ServiceMonitor
+      - documentIndex: &ConfigMapDocument 5
+        isKind:
+          of: ConfigMap
+
       - documentIndex: *ServiceMonitorDocument
         equal:
           path: metadata.name
@@ -74,10 +118,25 @@ tests:
           nameOverride: test
     asserts:
       - hasDocuments:
-          count: 3
-      - documentIndex: &ServiceMonitorDocument 2
+          count: 6
+      - documentIndex: &DeploymentDocument 0
+        isKind:
+          of: Deployment
+      - documentIndex: &ServiceTCPDocument 1
+        isKind:
+          of: Service
+      - documentIndex: &ServiceUDPDocument 2
+        isKind:
+          of: Service
+      - documentIndex: &ServiceMainDocument 3
+        isKind:
+          of: Service
+      - documentIndex: &ServiceMonitorDocument 4
         isKind:
           of: ServiceMonitor
+      - documentIndex: &ConfigMapDocument 5
+        isKind:
+          of: ConfigMap
       - documentIndex: *ServiceMonitorDocument
         equal:
           path: metadata.name
@@ -98,10 +157,25 @@ tests:
           serviceName: "{{ .Release.Name }}"
     asserts:
       - hasDocuments:
-          count: 3
-      - documentIndex: &ServiceMonitorDocument 2
+          count: 6
+      - documentIndex: &DeploymentDocument 0
+        isKind:
+          of: Deployment
+      - documentIndex: &ServiceTCPDocument 1
+        isKind:
+          of: Service
+      - documentIndex: &ServiceUDPDocument 2
+        isKind:
+          of: Service
+      - documentIndex: &ServiceMainDocument 3
+        isKind:
+          of: Service
+      - documentIndex: &ServiceMonitorDocument 4
         isKind:
           of: ServiceMonitor
+      - documentIndex: &ConfigMapDocument 5
+        isKind:
+          of: ConfigMap
       - documentIndex: *ServiceMonitorDocument
         equal:
           path: metadata.name
@@ -124,10 +198,25 @@ tests:
               test: "true"
     asserts:
       - hasDocuments:
-          count: 3
-      - documentIndex: &ServiceMonitorDocument 2
+          count: 6
+      - documentIndex: &DeploymentDocument 0
+        isKind:
+          of: Deployment
+      - documentIndex: &ServiceTCPDocument 1
+        isKind:
+          of: Service
+      - documentIndex: &ServiceUDPDocument 2
+        isKind:
+          of: Service
+      - documentIndex: &ServiceMainDocument 3
+        isKind:
+          of: Service
+      - documentIndex: &ServiceMonitorDocument 4
         isKind:
           of: ServiceMonitor
+      - documentIndex: &ConfigMapDocument 5
+        isKind:
+          of: ConfigMap
       - documentIndex: *ServiceMonitorDocument
         equal:
           path: metadata.name

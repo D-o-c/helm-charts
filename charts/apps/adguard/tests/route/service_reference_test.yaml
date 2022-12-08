@@ -10,7 +10,7 @@ tests:
           - name: parentName
             namespace: parentNamespace
     asserts:
-      - documentIndex: &HTTPRouteDocument 2
+      - documentIndex: &HTTPRouteDocument 4
         isKind:
           of: HTTPRoute
       - documentIndex: *HTTPRouteDocument
@@ -21,7 +21,7 @@ tests:
             kind: Service
             name: RELEASE-NAME
             namespace: NAMESPACE
-            port: null
+            port: 3000
             weight: 1
 
   - it: custom service reference should pass
@@ -39,7 +39,7 @@ tests:
               namespace: serviceNamespace
               weight: 123
     asserts:
-      - documentIndex: &HTTPRouteDocument 2
+      - documentIndex: &HTTPRouteDocument 4
         isKind:
           of: HTTPRoute
       - documentIndex: *HTTPRouteDocument

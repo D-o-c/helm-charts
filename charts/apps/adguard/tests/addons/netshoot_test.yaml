@@ -5,13 +5,22 @@ tests:
   - it: default should pass
     asserts:
       - hasDocuments:
-          count: 2
+          count: 5
       - documentIndex: &DeploymentDocument 0
         isKind:
           of: Deployment
       - documentIndex: 1
         isKind:
           of: Service
+      - documentIndex: 2
+        isKind:
+          of: Service
+      - documentIndex: 3
+        isKind:
+          of: Service
+      - documentIndex: 4
+        isKind:
+          of: ConfigMap
       - documentIndex: *DeploymentDocument
         not: true
         equal:
@@ -25,13 +34,22 @@ tests:
           enabled: true
     asserts:
       - hasDocuments:
-          count: 2
+          count: 5
       - documentIndex: &DeploymentDocument 0
         isKind:
           of: Deployment
       - documentIndex: 1
         isKind:
           of: Service
+      - documentIndex: 2
+        isKind:
+          of: Service
+      - documentIndex: 3
+        isKind:
+          of: Service
+      - documentIndex: 4
+        isKind:
+          of: ConfigMap
       - documentIndex: *DeploymentDocument
         equal:
           path: spec.template.spec.containers[1].name

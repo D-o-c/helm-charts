@@ -8,8 +8,11 @@ tests:
         isKind:
           of: Deployment
       - documentIndex: *DeploymentDoc
-        isNull:
-          path: spec.template.spec.containers[0].env
+        equal:
+          path: spec.template.spec.containers[0].env[0]
+          value:
+            name: TZ
+            value: UTC
 
   - it: KeyValue string should pass
     set:
@@ -22,6 +25,12 @@ tests:
       - documentIndex: *DeploymentDoc
         equal:
           path: spec.template.spec.containers[0].env[0]
+          value:
+            name: TZ
+            value: UTC
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.containers[0].env[1]
           value:
             name: string
             value: value_of_env
@@ -38,6 +47,12 @@ tests:
         equal:
           path: spec.template.spec.containers[0].env[0]
           value:
+            name: TZ
+            value: UTC
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.containers[0].env[1]
+          value:
             name: string
             value: "4.2"
 
@@ -52,6 +67,12 @@ tests:
       - documentIndex: *DeploymentDoc
         equal:
           path: spec.template.spec.containers[0].env[0]
+          value:
+            name: TZ
+            value: UTC
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.containers[0].env[1]
           value:
             name: string
             value: "1"
@@ -110,6 +131,12 @@ tests:
             valueFrom:
               fieldRef:
                 fieldPath: spec.nodeName
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.containers[0].env[1]
+          value:
+            name: TZ
+            value: UTC
 
   - it: Templated value should pass
     set:
@@ -125,6 +152,12 @@ tests:
           value:
             name: DYNAMIC_ENV
             value: RELEASE-NAME-admin
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.containers[0].env[1]
+          value:
+            name: TZ
+            value: UTC
 
   - it: Combined KeyValue with Explicit ValueFrom should pass
     set:
@@ -152,3 +185,9 @@ tests:
           value:
             name: STATIC_ENV
             value: static
+      - documentIndex: *DeploymentDoc
+        equal:
+          path: spec.template.spec.containers[0].env[2]
+          value:
+            name: TZ
+            value: UTC

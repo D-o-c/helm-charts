@@ -3,9 +3,38 @@ templates:
   - common.yaml
 tests:
   - it: default should pass
-    set:
-      persistence.config.enabled: true
     asserts:
+      - hasDocuments:
+          count: 5
+      - documentIndex: 0
+        not: true
+        isKind:
+          of: PersistentVolumeClaim
+      - documentIndex: 1
+        not: true
+        isKind:
+          of: PersistentVolumeClaim
+      - documentIndex: 2
+        not: true
+        isKind:
+          of: PersistentVolumeClaim
+      - documentIndex: 3
+        not: true
+        isKind:
+          of: PersistentVolumeClaim
+      - documentIndex: 4
+        not: true
+        isKind:
+          of: PersistentVolumeClaim
+
+  - it: default should pass
+    set:
+      persistence:
+        pvc-test:
+          enabled: true
+          accessMode: RWO
+          size: 1Gi
+    asserts:    
       - documentIndex: &PersistentVolumeClaimDocument 0
         isKind:
           of: PersistentVolumeClaim
@@ -19,13 +48,17 @@ tests:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: RELEASE-NAME
-            helm.sh/chart: app-template-1.2.0
+            app.kubernetes.io/version: v0.107.19
+            helm.sh/chart: adguard-home-1.1.0
 
   - it: retain enabled should pass
     set:
-      persistence.config:
-        enabled: true
-        retain: true
+      persistence:
+        pvc-test:
+          enabled: true
+          accessMode: RWO
+          size: 1Gi
+          retain: true
     asserts:
       - documentIndex: &PersistentVolumeClaimDocument 0
         isKind:
@@ -42,16 +75,21 @@ tests:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: RELEASE-NAME
-            helm.sh/chart: app-template-1.2.0
+            app.kubernetes.io/version: v0.107.19
+            helm.sh/chart: adguard-home-1.1.0
 
   - it: custom metadata should pass
     set:
-      persistence.config:
-        enabled: true
-        labels:
-          test_label: test
-        annotations:
-          test_annotation: test
+      persistence:
+        pvc-test:
+          enabled: true
+          accessMode: RWO
+          size: 1Gi
+          reatin: true
+          labels:
+            test_label: test
+          annotations:
+            test_annotation: test
     asserts:
       - documentIndex: &PersistentVolumeClaimDocument 0
         isKind:
@@ -68,7 +106,8 @@ tests:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: RELEASE-NAME
-            helm.sh/chart: app-template-1.2.0
+            app.kubernetes.io/version: v0.107.19
+            helm.sh/chart: adguard-home-1.1.0
             test_label: test
 
   - it: custom metadata with global metadata should pass
@@ -78,12 +117,16 @@ tests:
           global_label: test
         annotations:
           global_annotation: test
-      persistence.config:
-        enabled: true
-        labels:
-          test_label: test
-        annotations:
-          test_annotation: test
+      persistence:
+        pvc-test:
+          enabled: true
+          accessMode: RWO
+          size: 1Gi
+          reatin: true
+          labels:
+            test_label: test
+          annotations:
+            test_annotation: test
     asserts:
       - documentIndex: &PersistentVolumeClaimDocument 0
         isKind:
@@ -102,5 +145,6 @@ tests:
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: RELEASE-NAME
             global_label: test
-            helm.sh/chart: app-template-1.2.0
+            app.kubernetes.io/version: v0.107.19
+            helm.sh/chart: adguard-home-1.1.0
             test_label: test

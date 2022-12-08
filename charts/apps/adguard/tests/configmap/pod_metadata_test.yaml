@@ -5,7 +5,7 @@ tests:
   - it: default metadata should pass
     set:
       configMaps:
-        config:
+        test: # `config` configMap is overridden and forced on by default
           enabled: true
           data:
             test: value 1
@@ -17,4 +17,4 @@ tests:
         equal:
           path: spec.template.metadata.annotations
           value:
-            checksum/config: afdf20f511621d5cb358c5e8b0da2d14cdbe2549fb12fa123f6a6e9baabef26e
+            checksum/config: 618cbeb7f6ea8ee290b34896c894a465af51c81e735848627cc21b25c424a8e1

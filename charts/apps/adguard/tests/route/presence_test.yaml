@@ -5,27 +5,49 @@ tests:
   - it: default should pass
     asserts:
       - hasDocuments:
-          count: 2
+          count: 5
       - documentIndex: 0
         not: true
         isKind:
           of: HTTPRoute
       - documentIndex: 1
+        not: true
+        isKind:
+          of: HTTPRoute
+      - documentIndex: 2
+        not: true
+        isKind:
+          of: HTTPRoute
+      - documentIndex: 3
+        not: true
+        isKind:
+          of: HTTPRoute
+      - documentIndex: 4
         not: true
         isKind:
           of: HTTPRoute
 
   - it: explicitly disabled should pass
-    set:
-      route.main.enabled: false
     asserts:
       - hasDocuments:
-          count: 2
+          count: 5
       - documentIndex: 0
         not: true
         isKind:
           of: HTTPRoute
       - documentIndex: 1
+        not: true
+        isKind:
+          of: HTTPRoute
+      - documentIndex: 2
+        not: true
+        isKind:
+          of: HTTPRoute
+      - documentIndex: 3
+        not: true
+        isKind:
+          of: HTTPRoute
+      - documentIndex: 4
         not: true
         isKind:
           of: HTTPRoute
@@ -39,7 +61,7 @@ tests:
             namespace: test
     asserts:
       - hasDocuments:
-          count: 3
+          count: 6
       - documentIndex: 0
         not: true
         isKind:
@@ -49,6 +71,18 @@ tests:
         isKind:
           of: HTTPRoute
       - documentIndex: 2
+        not: true
+        isKind:
+          of: HTTPRoute
+      - documentIndex: 3
+        not: true
+        isKind:
+          of: HTTPRoute
+      - documentIndex: 4
+        isKind:
+          of: HTTPRoute
+      - documentIndex: 5
+        not: true
         isKind:
           of: HTTPRoute
 
@@ -67,7 +101,7 @@ tests:
               namespace: test
     asserts:
       - hasDocuments:
-          count: 4
+          count: 7
       - documentIndex: 0
         not: true
         isKind:
@@ -77,8 +111,20 @@ tests:
         isKind:
           of: HTTPRoute
       - documentIndex: 2
+        not: true
         isKind:
           of: HTTPRoute
       - documentIndex: 3
+        not: true
+        isKind:
+          of: HTTPRoute
+      - documentIndex: 4
+        isKind:
+          of: HTTPRoute
+      - documentIndex: 5
+        isKind:
+          of: HTTPRoute
+      - documentIndex: 6
+        not: true
         isKind:
           of: HTTPRoute

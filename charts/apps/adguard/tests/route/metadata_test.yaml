@@ -10,7 +10,7 @@ tests:
           - name: test
             namespace: test
     asserts:
-      - documentIndex: &routeDocument 2
+      - documentIndex: &routeDocument 4
         isKind:
           of: HTTPRoute
       - documentIndex: *routeDocument
@@ -23,7 +23,8 @@ tests:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: RELEASE-NAME
-            helm.sh/chart: app-template-1.2.0
+            app.kubernetes.io/version: v0.107.19
+            helm.sh/chart: adguard-home-1.1.0
 
   - it: custom metadata should pass
     set:
@@ -37,7 +38,7 @@ tests:
           - name: test
             namespace: test
     asserts:
-      - documentIndex: &routeDocument 2
+      - documentIndex: &routeDocument 4
         isKind:
           of: HTTPRoute
       - documentIndex: *routeDocument
@@ -52,7 +53,8 @@ tests:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: RELEASE-NAME
-            helm.sh/chart: app-template-1.2.0
+            app.kubernetes.io/version: v0.107.19
+            helm.sh/chart: adguard-home-1.1.0
             test_label: test
 
   - it: custom metadata with global metadata should pass
@@ -72,7 +74,7 @@ tests:
           - name: test
             namespace: test
     asserts:
-      - documentIndex: &routeDocument 2
+      - documentIndex: &routeDocument 4
         isKind:
           of: HTTPRoute
       - documentIndex: *routeDocument
@@ -89,5 +91,6 @@ tests:
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: RELEASE-NAME
             global_label: test
-            helm.sh/chart: app-template-1.2.0
+            app.kubernetes.io/version: v0.107.19
+            helm.sh/chart: adguard-home-1.1.0
             test_label: test

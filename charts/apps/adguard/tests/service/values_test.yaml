@@ -12,13 +12,20 @@ tests:
               port: 80
     asserts:
       - hasDocuments:
-          count: 3
-      - documentIndex: &FirstServiceDocument 1
+          count: 6
+      - documentIndex: &ServiceDocument-main 3
         isKind:
           of: Service
-      - documentIndex: &SecondServiceDocument 2
+      - documentIndex: &ServiceDocument-udp 2
         isKind:
           of: Service
+      - documentIndex: &ServiceDocument-tcp 1
+        isKind:
+          of: Service
+      - documentIndex: &ServiceDocument-tcp 4
+        isKind:
+          of: Service
+
 
   - it: services can be disabled
     set:
@@ -27,10 +34,19 @@ tests:
           enabled: false
     asserts:
       - hasDocuments:
-          count: 1
+          count: 4
       - documentIndex: &DeploymentDocument 0
         isKind:
           of: Deployment
+      - documentIndex: &TCPDocument 1
+        isKind:
+          of: Service
+      - documentIndex: &UDPDocument 2
+        isKind:
+          of: Service
+      - documentIndex: &ConfigMapDocument 3
+        isKind:
+          of: ConfigMap
 
   - it: externalTrafficPolicy should pass for NodePort service
     set:
