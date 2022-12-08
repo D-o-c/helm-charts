@@ -11,7 +11,7 @@ tests:
         equal:
           path: spec.template.spec.volumes[0]
           value:
-            name: adguard-home-configMap
+            name: adguard-home-configmap
             configMap:
               name: RELEASE-NAME-config
       - documentIndex: *DeploymentDoc
@@ -35,7 +35,7 @@ tests:
         equal:
           path: spec.template.spec.volumes[0]
           value:
-            name: adguard-home-configMap
+            name: adguard-home-configmap
             configMap:
               name: RELEASE-NAME-config
       - documentIndex: *DeploymentDoc
@@ -62,7 +62,7 @@ tests:
         equal:
           path: spec.template.spec.volumes[0]
           value:
-            name: adguard-home-configMap
+            name: adguard-home-configmap
             configMap:
               name: RELEASE-NAME-config
       - documentIndex: *DeploymentDoc

@@ -16,7 +16,7 @@ tests:
           path: spec.template.spec.containers[0].volumeMounts[0]
           value:
             mountPath: /tmp/AdGuardHome.yaml
-            name: adguard-home-configMap
+            name: adguard-home-configmap
             subPath: AdGuardHome.yaml
 
   - it: default should pass
@@ -29,7 +29,7 @@ tests:
           path: spec.template.spec.containers[0].volumeMounts[0]
           value:
             mountPath: /tmp/AdGuardHome.yaml
-            name: adguard-home-configMap
+            name: adguard-home-configmap
             subPath: AdGuardHome.yaml
       - documentIndex: *DeploymentDoc
         equal:

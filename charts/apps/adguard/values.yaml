@@ -26,7 +26,7 @@ initContainers:
         cp /tmp/AdGuardHome.yaml /opt/adguardhome/conf/AdGuardHome.yaml
       fi
     volumeMounts:
-    - name: adguard-home-config
+    - name: adguard-home-configmap
       mountPath: /tmp/AdGuardHome.yaml
       subPath: AdGuardHome.yaml
     - name: config
