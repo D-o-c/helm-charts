@@ -1,6 +1,10 @@
 ---
 {{- include "bjw-s.common.loader.init" . }}
 
+{{- if eq .Values.controller.type "cronjob" }}
+{{- fail "Controller type (cronjob) not accepted for this chart." }}
+{{- end }}
+
 {{- define "app-template.hardcodedValues" -}}
 # Set the nameOverride based on the release name if no override has been set
 {{ if not .Values.global.nameOverride }}
@@ -25,9 +29,15 @@ volumeSpec:
 {{/* Create the configMap elements */}}
 {{- define "mosquitto.configMap" -}}
 enabled: true
-#name: {{ include "bjw-s.common.lib.chart.names.fullname" . }}-config
-labels:
-  {{- include "bjw-s.common.lib.metadata.allLabels" . | nindent 4 }}
+
+{{- with (.Values.configMaps.config.labels | default dict) }}
+labels: {{- toYaml . | nindent 4 }}
+{{- end }}
+
+{{- with (.Values.configMaps.config.annotations | default dict) }}
+annotations: {{- toYaml . | nindent 4 }}
+{{- end }}
+
 data:
   mosquitto.conf: |
     per_listener_settings {{ .Values.perListenerSettings }}

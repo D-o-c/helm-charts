@@ -1,0 +1,63 @@
+suite: service port names
+templates:
+  - common.yaml
+tests:
+  - it: default should pass
+    asserts:
+      - hasDocuments:
+          count: 3
+      - documentIndex: &ServiceDocument 1
+        isKind:
+          of: Service
+      - documentIndex: *ServiceDocument
+        equal:
+          path: spec.ports[0]
+          value:
+            name: mqtt
+            port: 1883
+            protocol: TCP
+            targetPort: mqtt
+
+  - it: custom name should pass
+    set:
+      service:
+        main:
+          ports:
+            mqtt:
+              enabled: false
+            server:
+              enabled: true
+              port: 8080
+    asserts:
+      - documentIndex: &ServiceDocument 1
+        isKind:
+          of: Service
+      - documentIndex: *ServiceDocument
+        equal:
+          path: spec.ports[0]
+          value:
+            name: server
+            port: 8080
+            protocol: TCP
+            targetPort: server
+
+  - it: custom target port should pass
+    set:
+      service:
+        main:
+          ports:
+            mqtt:
+              enabled: true
+              targetPort: 80
+    asserts:
+      - documentIndex: &ServiceDocument 1
+        isKind:
+          of: Service
+      - documentIndex: *ServiceDocument
+        equal:
+          path: spec.ports[0]
+          value:
+            name: mqtt
+            port: 1883
+            protocol: TCP
+            targetPort: 80
