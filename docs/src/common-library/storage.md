@@ -8,6 +8,8 @@ using the common library.
 These are the types of storage that are supported in the common library.
 Of course, other types are possible with the `custom` type.
 
+<!-- toc -->
+
 ### Persistent Volume Claim
 
 This is probably the most common storage type, therefore it is also the
@@ -190,9 +192,10 @@ This will mount the contents of the pre-existing `mySecret` Secret to `/config`.
 To mount an NFS share to your Pod you can either pre-create a persistentVolumeClaim
 referring to it, or you can specify an inline NFS volume:
 
-!!! note
-    Mounting an NFS share this way does not allow for specifying mount options.
-    If you require these, you must create a PVC to mount the share.
+```admonish note
+Mounting an NFS share this way does not allow for specifying mount options.
+If you require these, you must create a PVC to mount the share.
+```
 
 | Field           | Mandatory | Docs / Description                                                                                                 |
 | --------------- | --------- | ------------------------------------------------------------------------------------------------------------------ |
@@ -245,9 +248,10 @@ It is possible to mount multiple subPaths from the same volume to the main
 container. This can be achieved by specifying `subPath` with a list
 instead of a string.
 
-!!! note
-    It is not possible to define `mountPath` at the top level when using this
-    feature
+```admonish note
+It is not possible to define `mountPath` at the top level when using this
+feature
+```
 
 Examples:
 
