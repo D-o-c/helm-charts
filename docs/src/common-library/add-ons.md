@@ -16,8 +16,9 @@ Home Assistant.
 Below is a snippet from a `values.yaml` using the add-on. More configuration
 options can be found in our common chart documentation.
 
-!!! note
-    This example will mount `/config` into the code-server sidecar.
+```admonish note
+This example will mount `/config` into the code-server sidecar.
+```
 
 ```yaml
 addons:
